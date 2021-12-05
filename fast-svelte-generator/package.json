@@ -1,0 +1,22 @@
+{
+  "name": "fast-svelte-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "bin": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Steven Dirth",
+  "license": "MIT",
+  "dependencies": {
+    "@microsoft/fast-components": "^2.16.6"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.11",
+    "lodash-es": "^4.17.21",
+    "typescript": "^4.5.2"
+  }
+}
