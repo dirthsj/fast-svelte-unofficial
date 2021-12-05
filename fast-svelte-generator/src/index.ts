@@ -114,4 +114,4 @@ for (const wrapper of wrappers) {
 
 const indexjs = wrappers.map(x => `export { default as ${x.componentName} } from './${x.componentName}.svelte';`).join('\n');
 
-writeFileSync('../fast-svelte-unofficial/src', indexjs);
+writeFileSync('../fast-svelte-unofficial/src/index.js', indexjs);
