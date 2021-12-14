@@ -59,6 +59,7 @@ const defTags = componentDefs.map(x => x.tags[0]);
 
 interface SvelteComponentDefWrapper {
     componentName: string,
+    description: string,
     htmlTag: string,
     attributes: SvelteComponentDefWrapperAttribute[],
     slots: string[]
@@ -68,6 +69,7 @@ interface SvelteComponentDefWrapperAttribute {
     svelteExportJsdocType: string,
     svelteExportName: string,
     htmlAttributeName: string,
+    description: string,
 }
 
 const wrappers: SvelteComponentDefWrapper[] = defTags.map((x): SvelteComponentDefWrapper => ({
@@ -77,7 +79,9 @@ const wrappers: SvelteComponentDefWrapper[] = defTags.map((x): SvelteComponentDe
         svelteExportJsdocType: x.values ? x.values.map(x => `'${x.name}'`).join(' | ') : x.type,
         svelteExportName: x.name.replaceAll('-', '_'),
         htmlAttributeName: x.name,
+        description: x.description,
     })),
+    description: x.description,
     slots: x.slots.map(x => x.name)
 }))
 
@@ -88,9 +92,11 @@ const serializeSvelteComponentDefWrapper = (component: SvelteComponentDefWrapper
 
     result += "\texport let component;\n"
 
-    result += component.attributes.map(x => `\t/** @type { ${x.svelteExportJsdocType} | null } */\n\texport let ${x.svelteExportName} = null;\n`).join('');
+    result += component.attributes.map(x => `\t/**\n\t * ${x.description}\n\t * @type { ${x.svelteExportJsdocType} | null }\n\t */\n\texport let ${x.svelteExportName} = null;\n`).join('');
     
     result += "</script>\n\n";
+
+    result += `<!-- @component ${component.description} -->\n\n`;
 
     result += `<${component.htmlTag} bind:this={component}`;
 
